@@ -15,15 +15,24 @@ import java.awt.Font;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.text.Format;
+import java.util.concurrent.TimeUnit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.Toolkit;
 import java.beans.PropertyChangeListener;
+import java.sql.Date;
 import java.beans.PropertyChangeEvent;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
+import java.math.BigDecimal;
+
+
+import com.alura.hotel.controllers.ReservaController;
+import com.alura.hotel.models.Reserva;
+import com.alura.hotel.utils.Configuracion;
+
 
 @SuppressWarnings("serial")
 public class ReservasView extends JFrame {
@@ -237,6 +246,12 @@ public class ReservasView extends JFrame {
 		labelAtras.setFont(new Font("Roboto", Font.PLAIN, 23));
 
 		JLabel lblSiguiente = new JLabel("SIGUIENTE");
+		lblSiguiente.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				saveReserva();
+			}
+		});
 		lblSiguiente.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSiguiente.setForeground(Color.WHITE);
 		lblSiguiente.setFont(new Font("Roboto", Font.PLAIN, 18));
@@ -268,6 +283,8 @@ public class ReservasView extends JFrame {
 			public void propertyChange(PropertyChangeEvent evt) {
 				// Activa el evento, después del usuario seleccionar las fechas se debe calcular
 				// el valor de la reserva
+				calcular();
+				
 			}
 		});
 		txtFechaSalida.setDateFormatString("yyyy-MM-dd");
@@ -275,12 +292,12 @@ public class ReservasView extends JFrame {
 		txtFechaSalida.setBorder(new LineBorder(new Color(255, 255, 255), 0));
 		panel.add(txtFechaSalida);
 
-		txtValor = new JTextField();
+		txtValor = new JTextField("");
+		txtValor.setEditable(false);
 		txtValor.setBackground(SystemColor.text);
 		txtValor.setHorizontalAlignment(SwingConstants.CENTER);
 		txtValor.setForeground(Color.BLACK);
-		txtValor.setBounds(78, 328, 43, 33);
-		txtValor.setEditable(false);
+		txtValor.setBounds(78, 328, 279, 33);
 		txtValor.setFont(new Font("Roboto Black", Font.BOLD, 17));
 		txtValor.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 		panel.add(txtValor);
@@ -300,7 +317,7 @@ public class ReservasView extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (ReservasView.txtFechaEntrada.getDate() != null && ReservasView.txtFechaSalida.getDate() != null) {
-					RegistroHuesped registro = new RegistroHuesped();
+					RegistroHuesped registro = new RegistroHuesped(0l);
 					registro.setVisible(true);
 				} else {
 					JOptionPane.showMessageDialog(null, "Debes llenar todos los campos.");
@@ -327,5 +344,68 @@ public class ReservasView extends JFrame {
 		int x = evt.getXOnScreen();
 		int y = evt.getYOnScreen();
 		this.setLocation(x - xMouse, y - yMouse);
+	}
+	
+	private void saveReserva() {
+		String fechaIngreso=((JTextField)txtFechaEntrada.getDateEditor().getUiComponent()).getText();
+		String fechaEgreso=((JTextField)txtFechaSalida.getDateEditor().getUiComponent()).getText();
+		String valor=txtValor.getText().trim();
+		
+		if( fechaIngreso.isBlank() ||  fechaEgreso.isBlank() || valor.isBlank()) {
+			JOptionPane.showMessageDialog(contentPane,"Error: Compruebe que las fechas esten bien.");
+			return;
+		}
+		Date dateIngreso=Date.valueOf(fechaIngreso);
+		Date dateEgreso=Date.valueOf(fechaEgreso);
+		
+		if(dateIngreso.compareTo(dateEgreso)>=0) {
+			JOptionPane.showMessageDialog(contentPane,"Error: Fecha de Ingreso no puede ser mayor a Fecha de Egreso.");
+			return;
+			
+		}
+		
+		
+		BigDecimal dvalor=new BigDecimal(valor);
+		String forma=txtFormaPago.getSelectedItem().toString();
+			
+		ReservaController reservaController=new ReservaController();
+		Reserva reserva=new Reserva(dateIngreso,dateEgreso,dvalor,forma);
+		
+		reservaController.save(reserva);
+		JOptionPane.showMessageDialog(contentPane,"Reserva guardada con éxito id:"+reserva.getId());
+		
+		RegistroHuesped huesped=new RegistroHuesped(reserva.getId());
+		huesped.setVisible(true);
+		dispose();
+	}
+	
+	private void calcular() {
+		String fechaIngreso=((JTextField)txtFechaEntrada.getDateEditor().getUiComponent()).getText();
+		String fechaEgreso=((JTextField)txtFechaSalida.getDateEditor().getUiComponent()).getText();
+
+		if(txtValor == null) {
+			return;
+		}
+		
+		if( fechaIngreso.isBlank() ||  fechaEgreso.isBlank() ) {
+			txtValor.setText("");
+			return;
+		}
+		
+		Date dateIngreso=Date.valueOf(fechaIngreso);
+		Date dateEgreso=Date.valueOf(fechaEgreso);
+		
+		long diff=dateEgreso.getTime()-dateIngreso.getTime();
+		
+		if(diff<=0) {
+			txtValor.setText("");
+			return;
+		}
+		
+		long dias=TimeUnit.DAYS.convert(diff,TimeUnit.MILLISECONDS);
+		Double precio=Double.valueOf(dias)*Configuracion.getPrecioPorDia();
+		txtValor.setText(precio.toString());
+				
+		
 	}
 }

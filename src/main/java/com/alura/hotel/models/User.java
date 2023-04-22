@@ -1,12 +1,14 @@
 package com.alura.hotel.models;
 
-import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
 import javax.persistence.Id;
+import java.sql.Date;
+
+
 
 @Entity
 @Table(name="users")
@@ -17,7 +19,7 @@ public class User {
 	private Long id;
 	private String username;
 	private String password;
-	private LocalDate lastTime=LocalDate.now();
+	private Date lastTime=new Date(System.currentTimeMillis());
 	
 	public User() {}
 	
@@ -47,7 +49,7 @@ public class User {
 		this.password = password;
 	}
 
-	public LocalDate getLastTime() {
+	public Date getLastTime() {
 		return lastTime;
-	}	
+	}
 }

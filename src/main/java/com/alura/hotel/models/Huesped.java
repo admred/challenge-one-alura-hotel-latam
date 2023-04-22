@@ -1,6 +1,6 @@
 package com.alura.hotel.models;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -21,7 +21,7 @@ public class Huesped {
 	private Long Id;
 	private String nombre;
 	private String apellido;
-	private LocalDate fechaNacimiento;
+	private Date fechaNacimiento;
 	private String nacionalidad;
 	private String telefono;
 	
@@ -30,7 +30,7 @@ public class Huesped {
 
 	public Huesped() {}
 
-	public Huesped(String nombre, String apellido, LocalDate fechaNacimiento, String nacionalidad, String telefono) {
+	public Huesped(String nombre, String apellido, Date fechaNacimiento, String nacionalidad, String telefono) {
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.fechaNacimiento = fechaNacimiento;
@@ -54,11 +54,11 @@ public class Huesped {
 		this.apellido = apellido;
 	}
 
-	public LocalDate getFechaNacimiento() {
+	public Date getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
-	public void setFechaNacimiento(LocalDate fechaNacimiento) {
+	public void setFechaNacimiento(Date fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
