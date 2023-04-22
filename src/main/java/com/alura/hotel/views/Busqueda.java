@@ -1,43 +1,29 @@
 package com.alura.hotel.views;
 
-import java.awt.EventQueue;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.ImageIcon;
 import java.awt.Color;
-import java.awt.SystemColor;
-import javax.swing.JLabel;
+import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.event.ActionListener;
-import java.util.List;
-import java.awt.event.ActionEvent;
-import javax.swing.JTabbedPane;
 import java.awt.Toolkit;
-import javax.swing.SwingConstants;
-import javax.swing.JSeparator;
-import javax.swing.ListSelectionModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+
 @SuppressWarnings("serial")
 public class Busqueda extends JFrame {
-
-	private JPanel contentPane;
-	private JTextField txtBuscar;
-	private JTable tbHuespedes;
-	private JTable tbReservas;
-	private DefaultTableModel modelo;
-	private DefaultTableModel modeloHuesped;
-	private JLabel labelAtras;
-	private JLabel labelExit;
-	int xMouse, yMouse;
 
 	/**
 	 * Launch the application.
@@ -54,6 +40,16 @@ public class Busqueda extends JFrame {
 			}
 		});
 	}
+	private JPanel contentPane;
+	private JTextField txtBuscar;
+	private JTable tbHuespedes;
+	private JTable tbReservas;
+	private DefaultTableModel modelo;
+	private DefaultTableModel modeloHuesped;
+	private JLabel labelAtras;
+	private JLabel labelExit;
+
+	int xMouse, yMouse;
 
 	/**
 	 * Create the frame.
@@ -264,15 +260,15 @@ public class Busqueda extends JFrame {
 		setResizable(false);
 	}
 
-//Código que permite mover la ventana por la pantalla según la posición de "x" y "y"
-	private void headerMousePressed(java.awt.event.MouseEvent evt) {
-		xMouse = evt.getX();
-		yMouse = evt.getY();
-	}
-
-	private void headerMouseDragged(java.awt.event.MouseEvent evt) {
+private void headerMouseDragged(java.awt.event.MouseEvent evt) {
 		int x = evt.getXOnScreen();
 		int y = evt.getYOnScreen();
 		this.setLocation(x - xMouse, y - yMouse);
+	}
+
+	//Código que permite mover la ventana por la pantalla según la posición de "x" y "y"
+	private void headerMousePressed(java.awt.event.MouseEvent evt) {
+		xMouse = evt.getX();
+		yMouse = evt.getY();
 	}
 }

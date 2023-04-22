@@ -47,43 +47,43 @@ public class Reserva {
 		return fechaEntrada;
 	}
 
-	public void setFechaEntrada(Date fechaEntrada) {
-		this.fechaEntrada = fechaEntrada;
-	}
-
 	public Date getFechaSalida() {
 		return fechaSalida;
-	}
-
-	public void setFechaSalida(Date fechaSalida) {
-		this.fechaSalida = fechaSalida;
-	}
-
-	public BigDecimal getValor() {
-		return valor;
-	}
-
-	public void setValor(BigDecimal valor) {
-		this.valor = valor;
 	}
 
 	public String getFormaPago() {
 		return formaPago;
 	}
 
-	public void setFormaPago(String formaPago) {
-		this.formaPago = formaPago;
+	public Huesped getHuesped() {
+		return huesped;
 	}
 
 	public Long getId() {
 		return Id;
 	}
 
+	public BigDecimal getValor() {
+		return valor;
+	}
+
+	public void setFechaEntrada(Date fechaEntrada) {
+		this.fechaEntrada = fechaEntrada;
+	}
+
+	public void setFechaSalida(Date fechaSalida) {
+		this.fechaSalida = fechaSalida;
+	}
+
+	public void setFormaPago(String formaPago) {
+		this.formaPago = formaPago;
+	}
+
 	public void setHuesped(Huesped huesped) {
 		this.huesped = huesped;
 	}
 
-	public Huesped getHuesped() {
-		return huesped;
+	public void setValor(BigDecimal valor) {
+		this.valor = valor;
 	}
 }

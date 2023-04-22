@@ -1,16 +1,16 @@
 package com.alura.hotel.models;
 
 import java.sql.Date;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Table;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
 @Table(name="huespedes")
@@ -38,51 +38,51 @@ public class Huesped {
 		this.telefono = telefono;
 	}
 	
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void addReserva(Reserva reserva) {
+		this.reservas.add(reserva);
 	}
 
 	public String getApellido() {
 		return apellido;
 	}
 
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
-	}
-
 	public Date getFechaNacimiento() {
 		return fechaNacimiento;
-	}
-
-	public void setFechaNacimiento(Date fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
 	}
 
 	public String getNacionalidad() {
 		return nacionalidad;
 	}
 
-	public void setNacionalidad(String nacionalidad) {
-		this.nacionalidad = nacionalidad;
+	public String getNombre() {
+		return nombre;
+	}
+
+	public List<Reserva> getReservas() {
+		return reservas;
 	}
 
 	public String getTelefono() {
 		return telefono;
 	}
 
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+
+	public void setFechaNacimiento(Date fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
+
+	public void setNacionalidad(String nacionalidad) {
+		this.nacionalidad = nacionalidad;
+	}
+	
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
-	}
-	
-	public void addReserva(Reserva reserva) {
-		this.reservas.add(reserva);
-	}
-	
-	public List<Reserva> getReservas() {
-		return reservas;
 	}
 }

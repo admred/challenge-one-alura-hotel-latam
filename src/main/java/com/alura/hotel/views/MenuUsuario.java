@@ -1,33 +1,26 @@
 package com.alura.hotel.views;
 
-import java.awt.EventQueue;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.event.ActionListener;
+import java.awt.SystemColor;
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.ActionEvent;
-import java.awt.Toolkit;
-import javax.swing.SwingConstants;
 import java.awt.event.MouseMotionAdapter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.awt.SystemColor;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 @SuppressWarnings("serial")
 public class MenuUsuario extends JFrame {
-
-	private JPanel contentPane;
-	int xMouse, yMouse;
-	private JLabel labelExit;
-	private JLabel labelRegistro;
 
 	/**
 	 * Launch the application.
@@ -44,6 +37,11 @@ public class MenuUsuario extends JFrame {
 			}
 		});
 	}
+	private JPanel contentPane;
+	int xMouse, yMouse;
+	private JLabel labelExit;
+
+	private JLabel labelRegistro;
 
 	/**
 	 * Create the frame.
@@ -89,6 +87,13 @@ public class MenuUsuario extends JFrame {
 		JPanel btnRegistro = new JPanel();
 		btnRegistro.addMouseListener(new MouseAdapter() {
 			@Override
+			public void mouseClicked(MouseEvent e) {
+				ReservasView reservas = new ReservasView();
+				reservas.setVisible(true);
+				dispose();
+			}
+
+			@Override
 			public void mouseEntered(MouseEvent e) {
 				btnRegistro.setBackground(new Color(118, 187, 223));
 			}
@@ -96,13 +101,6 @@ public class MenuUsuario extends JFrame {
 			@Override
 			public void mouseExited(MouseEvent e) {
 				btnRegistro.setBackground(new Color(12, 138, 199));
-			}
-
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				ReservasView reservas = new ReservasView();
-				reservas.setVisible(true);
-				dispose();
 			}
 		});
 		btnRegistro.setBounds(0, 255, 257, 56);
@@ -121,6 +119,13 @@ public class MenuUsuario extends JFrame {
 		JPanel btnBusqueda = new JPanel();
 		btnBusqueda.addMouseListener(new MouseAdapter() {
 			@Override
+			public void mouseClicked(MouseEvent e) {
+				Busqueda busqueda = new Busqueda();
+				busqueda.setVisible(true);
+				dispose();
+			}
+
+			@Override
 			public void mouseEntered(MouseEvent e) {
 				btnBusqueda.setBackground(new Color(118, 187, 223));
 			}
@@ -128,13 +133,6 @@ public class MenuUsuario extends JFrame {
 			@Override
 			public void mouseExited(MouseEvent e) {
 				btnBusqueda.setBackground(new Color(12, 138, 199));
-			}
-
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				Busqueda busqueda = new Busqueda();
-				busqueda.setVisible(true);
-				dispose();
 			}
 		});
 		btnBusqueda.setBounds(0, 312, 257, 56);
@@ -244,14 +242,14 @@ public class MenuUsuario extends JFrame {
 		contentPane.add(lblNewLabel_3_2);
 	}
 
-	private void headerMousePressed(java.awt.event.MouseEvent evt) {
-		xMouse = evt.getX();
-		yMouse = evt.getY();
-	}// GEN-LAST:event_headerMousePressed
-
 	private void headerMouseDragged(java.awt.event.MouseEvent evt) {
 		int x = evt.getXOnScreen();
 		int y = evt.getYOnScreen();
 		this.setLocation(x - xMouse, y - yMouse);
 	}
+
+	private void headerMousePressed(java.awt.event.MouseEvent evt) {
+		xMouse = evt.getX();
+		yMouse = evt.getY();
+	}// GEN-LAST:event_headerMousePressed
 }

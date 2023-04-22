@@ -1,43 +1,30 @@
 package com.alura.hotel.views;
 
-import java.awt.EventQueue;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JTextField;
 import java.awt.Color;
-import com.toedter.calendar.JDateChooser;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+import java.awt.EventQueue;
 import java.awt.Font;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import java.awt.SystemColor;
-import java.awt.event.ActionListener;
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.text.Format;
-import java.awt.event.ActionEvent;
-import java.awt.Toolkit;
-import javax.swing.SwingConstants;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JSeparator;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+
+import com.toedter.calendar.JDateChooser;
 
 @SuppressWarnings("serial")
 public class RegistroHuesped extends JFrame {
-
-	private JPanel contentPane;
-	private JTextField txtNombre;
-	private JTextField txtApellido;
-	private JTextField txtTelefono;
-	private JTextField txtNreserva;
-	private JDateChooser txtFechaN;
-	private JComboBox<Format> txtNacionalidad;
-	private JLabel labelExit;
-	private JLabel labelAtras;
-	int xMouse, yMouse;
 
 	/**
 	 * Launch the application.
@@ -54,6 +41,17 @@ public class RegistroHuesped extends JFrame {
 			}
 		});
 	}
+	private JPanel contentPane;
+	private JTextField txtNombre;
+	private JTextField txtApellido;
+	private JTextField txtTelefono;
+	private JTextField txtNreserva;
+	private JDateChooser txtFechaN;
+	private JComboBox<Format> txtNacionalidad;
+	private JLabel labelExit;
+	private JLabel labelAtras;
+
+	int xMouse, yMouse;
 
 	/**
 	 * Create the frame.
@@ -339,17 +337,17 @@ public class RegistroHuesped extends JFrame {
 		header.add(btnexit);
 	}
 
+	private void headerMouseDragged(java.awt.event.MouseEvent evt) {
+		int x = evt.getXOnScreen();
+		int y = evt.getYOnScreen();
+		this.setLocation(x - xMouse, y - yMouse);
+	}
+
 	// Código que permite mover la ventana por la pantalla según la posición de "x"
 	// y "y"
 	private void headerMousePressed(java.awt.event.MouseEvent evt) {
 		xMouse = evt.getX();
 		yMouse = evt.getY();
-	}
-
-	private void headerMouseDragged(java.awt.event.MouseEvent evt) {
-		int x = evt.getXOnScreen();
-		int y = evt.getYOnScreen();
-		this.setLocation(x - xMouse, y - yMouse);
 	}
 
 }

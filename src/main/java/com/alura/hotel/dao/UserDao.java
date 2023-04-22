@@ -15,19 +15,6 @@ public class UserDao {
 		this.em = em;
 	}
 	
-	public void save(User user) {
-		em.persist(user);
-	}
-	
-	public void remove(User user) {
-		User u=em.merge(user);
-		em.remove(u);
-	}
-	
-	public void  update(User user) {
-		em.merge(user);
-	}
-	
 	public User getById(Long id) {
 		return em.find(User.class, id);
 	}
@@ -40,5 +27,18 @@ public class UserDao {
 	public List<User> list(){
 		final String jqpl="SELECT u FROM User AS u";
 		return em.createQuery(jqpl,User.class).getResultList();
+	}
+	
+	public void remove(User user) {
+		User u=em.merge(user);
+		em.remove(u);
+	}
+	
+	public void save(User user) {
+		em.persist(user);
+	}
+	
+	public void  update(User user) {
+		em.merge(user);
 	}
 }

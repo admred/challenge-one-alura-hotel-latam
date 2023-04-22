@@ -6,13 +6,24 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import com.alura.hotel.models.*;
-import com.alura.hotel.dao.*;
+
+import com.alura.hotel.dao.HuespedDao;
+import com.alura.hotel.dao.ReservaDao;
+import com.alura.hotel.dao.UserDao;
+import com.alura.hotel.models.Huesped;
+import com.alura.hotel.models.Reserva;
+import com.alura.hotel.models.User;
 import com.alura.hotel.utils.JPAUtils;
 
+/*
+ * Remplazar "update" por "create-drop" en persistence.xml
+ *
+ */
+
 public class CargarDatos {
+	
 	public CargarDatos() {
-		User admin=new User("admin","1234");
+		User admin=new User("admin","admin"); 
 		
 		Huesped huesped1=new Huesped("Jonatan Brian","Palacios Guemes",Date.valueOf("1980-04-05"),"Chile","010-021-4334732");
 		Huesped huesped2=new Huesped("Soledad Romina","Jofre Romero",Date.valueOf("2001-06-23"),"Uruguay","872-477421");

@@ -1,51 +1,45 @@
 package com.alura.hotel.views;
 
-import java.awt.EventQueue;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.SystemColor;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.ImageIcon;
 import java.awt.Color;
-import javax.swing.JTextField;
-import com.toedter.calendar.JDateChooser;
+import java.awt.EventQueue;
 import java.awt.Font;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import java.text.Format;
-import java.util.concurrent.TimeUnit;
+import java.awt.SystemColor;
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
-import java.awt.Toolkit;
-import java.beans.PropertyChangeListener;
-import java.sql.Date;
 import java.beans.PropertyChangeEvent;
-import javax.swing.JSeparator;
-import javax.swing.SwingConstants;
-import javax.swing.border.LineBorder;
+import java.beans.PropertyChangeListener;
 import java.math.BigDecimal;
+import java.sql.Date;
+import java.util.concurrent.TimeUnit;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JSeparator;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 import com.alura.hotel.controllers.ReservaController;
 import com.alura.hotel.models.Reserva;
 import com.alura.hotel.utils.Configuracion;
+import com.toedter.calendar.JDateChooser;
 
 
 @SuppressWarnings("serial")
 public class ReservasView extends JFrame {
 
-	private JPanel contentPane;
 	public static JTextField txtValor;
 	public static JDateChooser txtFechaEntrada;
 	public static JDateChooser txtFechaSalida;
 	public static JComboBox<String> txtFormaPago;
-	int xMouse, yMouse;
-	private JLabel labelExit;
-	private JLabel labelAtras;
-
 	/**
 	 * Launch the application.
 	 */
@@ -61,6 +55,11 @@ public class ReservasView extends JFrame {
 			}
 		});
 	}
+	private JPanel contentPane;
+	int xMouse, yMouse;
+	private JLabel labelExit;
+
+	private JLabel labelAtras;
 
 	/**
 	 * Create the frame.
@@ -333,17 +332,47 @@ public class ReservasView extends JFrame {
 
 	}
 
-	// Código que permite mover la ventana por la pantalla según la posición de "x"
-	// y "y"
-	private void headerMousePressed(java.awt.event.MouseEvent evt) {
-		xMouse = evt.getX();
-		yMouse = evt.getY();
+	private void calcular() {
+		String fechaIngreso=((JTextField)txtFechaEntrada.getDateEditor().getUiComponent()).getText();
+		String fechaEgreso=((JTextField)txtFechaSalida.getDateEditor().getUiComponent()).getText();
+
+		if(txtValor == null) {
+			return;
+		}
+		
+		if( fechaIngreso.isBlank() ||  fechaEgreso.isBlank() ) {
+			txtValor.setText("");
+			return;
+		}
+		
+		Date dateIngreso=Date.valueOf(fechaIngreso);
+		Date dateEgreso=Date.valueOf(fechaEgreso);
+		
+		long diff=dateEgreso.getTime()-dateIngreso.getTime();
+		
+		if(diff<=0) {
+			txtValor.setText("");
+			return;
+		}
+		
+		long dias=TimeUnit.DAYS.convert(diff,TimeUnit.MILLISECONDS);
+		Double precio=Double.valueOf(dias)*Configuracion.getPrecioPorDia();
+		txtValor.setText(precio.toString());
+				
+		
 	}
 
 	private void headerMouseDragged(java.awt.event.MouseEvent evt) {
 		int x = evt.getXOnScreen();
 		int y = evt.getYOnScreen();
 		this.setLocation(x - xMouse, y - yMouse);
+	}
+	
+	// Código que permite mover la ventana por la pantalla según la posición de "x"
+	// y "y"
+	private void headerMousePressed(java.awt.event.MouseEvent evt) {
+		xMouse = evt.getX();
+		yMouse = evt.getY();
 	}
 	
 	private void saveReserva() {
@@ -377,35 +406,5 @@ public class ReservasView extends JFrame {
 		RegistroHuesped huesped=new RegistroHuesped(reserva.getId());
 		huesped.setVisible(true);
 		dispose();
-	}
-	
-	private void calcular() {
-		String fechaIngreso=((JTextField)txtFechaEntrada.getDateEditor().getUiComponent()).getText();
-		String fechaEgreso=((JTextField)txtFechaSalida.getDateEditor().getUiComponent()).getText();
-
-		if(txtValor == null) {
-			return;
-		}
-		
-		if( fechaIngreso.isBlank() ||  fechaEgreso.isBlank() ) {
-			txtValor.setText("");
-			return;
-		}
-		
-		Date dateIngreso=Date.valueOf(fechaIngreso);
-		Date dateEgreso=Date.valueOf(fechaEgreso);
-		
-		long diff=dateEgreso.getTime()-dateIngreso.getTime();
-		
-		if(diff<=0) {
-			txtValor.setText("");
-			return;
-		}
-		
-		long dias=TimeUnit.DAYS.convert(diff,TimeUnit.MILLISECONDS);
-		Double precio=Double.valueOf(dias)*Configuracion.getPrecioPorDia();
-		txtValor.setText(precio.toString());
-				
-		
 	}
 }
