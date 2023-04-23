@@ -1,5 +1,7 @@
 package com.alura.hotel.controllers;
 
+
+
 import javax.persistence.EntityManager;
 
 import com.alura.hotel.dao.ReservaDao;
@@ -9,6 +11,7 @@ import com.alura.hotel.utils.JPAUtils;
 public class ReservaController {
 	
 	private ReservaDao reservaDao;
+	
 	private EntityManager em;
 	
 	public ReservaController() {
@@ -16,9 +19,19 @@ public class ReservaController {
 		reservaDao=new ReservaDao(em);
 	}
 	
-	public void save(Reserva reserva) {
+	public void save(Reserva reserva) { 
 		em.getTransaction().begin();
 		reservaDao.save(reserva);
 		em.getTransaction().commit();
+	}
+		
+	public void update(Reserva reserva) {
+		em.getTransaction().begin();
+		reservaDao.update(reserva);
+		em.getTransaction().commit();
+	}
+	
+	public Reserva getById(Long id) {
+		return reservaDao.getById(id);
 	}
 }

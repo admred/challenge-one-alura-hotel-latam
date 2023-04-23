@@ -38,6 +38,10 @@ public class Huesped {
 		this.telefono = telefono;
 	}
 	
+	public Long getId() {
+		return Id;
+	}
+	
 	public void addReserva(Reserva reserva) {
 		this.reservas.add(reserva);
 	}

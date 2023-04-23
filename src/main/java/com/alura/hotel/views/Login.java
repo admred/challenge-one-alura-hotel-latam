@@ -18,6 +18,8 @@ import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class Login extends JFrame {
 
@@ -111,19 +113,23 @@ public class Login extends JFrame {
 		labelExit.setHorizontalAlignment(SwingConstants.CENTER);
 
 		txtUsuario = new JTextField();
-		txtUsuario.addMouseListener(new MouseAdapter() {
+		txtUsuario.addFocusListener(new FocusAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void focusGained(FocusEvent e) {
 				if (txtUsuario.getText().equals("Ingrese su nombre de usuario")) {
 					txtUsuario.setText("");
 					txtUsuario.setForeground(Color.black);
 				}
-				if (String.valueOf(txtContrasena.getPassword()).isEmpty()) {
-					txtContrasena.setText("********");
-					txtContrasena.setForeground(Color.gray);
+			}
+			@Override
+			public void focusLost(FocusEvent e) {
+				if (txtUsuario.getText().isBlank()) {
+					txtUsuario.setText("Ingrese su nombre de usuario");
+					txtUsuario.setForeground(Color.black);
 				}
 			}
 		});
+
 		txtUsuario.setFont(new Font("Roboto", Font.PLAIN, 16));
 		txtUsuario.setText("Ingrese su nombre de usuario");
 		txtUsuario.setBorder(javax.swing.BorderFactory.createEmptyBorder());
@@ -150,19 +156,23 @@ public class Login extends JFrame {
 
 		txtContrasena = new JPasswordField();
 		txtContrasena.setText("********");
-		txtContrasena.addMouseListener(new MouseAdapter() {
+		txtContrasena.addFocusListener(new FocusAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void focusGained(FocusEvent e) {
 				if (String.valueOf(txtContrasena.getPassword()).equals("********")) {
 					txtContrasena.setText("");
 					txtContrasena.setForeground(Color.black);
 				}
-				if (txtUsuario.getText().isEmpty()) {
-					txtUsuario.setText("Ingrese su nombre de usuario");
-					txtUsuario.setForeground(Color.gray);
+			}
+			@Override
+			public void focusLost(FocusEvent e) {
+				if (String.valueOf(txtContrasena.getPassword()).isBlank() ) {
+					txtContrasena.setText("********");
+					txtContrasena.setForeground(Color.black);
 				}
 			}
 		});
+		
 		txtContrasena.setForeground(SystemColor.activeCaptionBorder);
 		txtContrasena.setFont(new Font("Roboto", Font.PLAIN, 16));
 		txtContrasena.setBorder(javax.swing.BorderFactory.createEmptyBorder());
@@ -185,7 +195,7 @@ public class Login extends JFrame {
 		btnLogin.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Login();
+				doLogin();
 			}
 
 			@Override
@@ -248,7 +258,7 @@ public class Login extends JFrame {
 		yMouse = evt.getY();
 	}// GEN-LAST:event_headerMousePressed
 
-	private void Login() {
+	private void doLogin() {
 		String Usuario = "admin";
 		String Contraseña = "admin";
 

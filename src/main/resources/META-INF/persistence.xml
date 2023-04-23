@@ -13,20 +13,27 @@ version="2.0">
 			<property name="javax.persistence.jdbc.user" value="hotel"/>
 			<property name="javax.persistence.jdbc.password" value="1234"/>
 					
-			
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect" />
 			<property name="hibernate.dialect.storage_engine" value="innodb"/>
 			
 			<property name="hibernate.show_sql" value="false"/>
-			<property name="hibernate.format_sql" value="true"/>
+			<property name="hibernate.format_sql" value="false"/>
 			  
         	
 			<!-- https://stackoverflow.com/questions/18077327/hibernate-hbm2ddl-auto-possible-values-and-what-they-do -->
 			<!-- valores: update, create, create-drop, validate -->
-			<property name="hibernate.hbm2ddl.auto" value="create-drop"/>
 			
+			<property name="hibernate.hbm2ddl.auto" value="update"/>
 			
-			<property name="hibernate.c3p0.minPoolSize" value="5"/>
-        	<property name="hibernate.c3p0.maxPoolSize" value="10"/>
+			<!--
+			<property name="hibernate.temp.use_jdbc_metadata_defaults" value="false" />
+			-->
+			<property name="hibernate.c3p0.min_size" value="5"/>
+        	<property name="hibernate.c3p0.max_size" value="10"/>
+        	<property name="hibernate.c3p0.acquire_increment" value="1" />
+    		<property name="hibernate.c3p0.idle_test_period" value="3000" />
+		    <property name="hibernate.c3p0.max_statements" value="30" />
+    		<property name="hibernate.c3p0.timeout" value="300" />
 	
 		</properties>
 	</persistence-unit>

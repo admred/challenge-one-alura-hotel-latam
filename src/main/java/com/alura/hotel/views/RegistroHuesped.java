@@ -8,6 +8,7 @@ import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.sql.Date;
 import java.text.Format;
 
 import javax.swing.DefaultComboBoxModel;
@@ -15,6 +16,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
@@ -22,6 +24,10 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import com.toedter.calendar.JDateChooser;
+import com.alura.hotel.models.Huesped;
+import com.alura.hotel.models.Reserva;
+import com.alura.hotel.controllers.HuespedController;
+import com.alura.hotel.controllers.ReservaController;
 
 @SuppressWarnings("serial")
 public class RegistroHuesped extends JFrame {
@@ -33,7 +39,7 @@ public class RegistroHuesped extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					RegistroHuesped frame = new RegistroHuesped(1l);
+					RegistroHuesped frame = new RegistroHuesped(0l);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -57,7 +63,7 @@ public class RegistroHuesped extends JFrame {
 	 * Create the frame.
 	 */
 	public RegistroHuesped(Long reservaId) {
-
+		super("Resgistro Huesped");
 		setIconImage(
 				Toolkit.getDefaultToolkit().getImage(RegistroHuesped.class.getResource("/imagenes/lOGO-50PX.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -229,6 +235,9 @@ public class RegistroHuesped extends JFrame {
 		txtNreserva.setBackground(Color.WHITE);
 		txtNreserva.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 		contentPane.add(txtNreserva);
+		if(reservaId !=null && reservaId != 0l) {
+			txtNreserva.setText(reservaId.toString());
+		}
 
 		JSeparator separator_1_2 = new JSeparator();
 		separator_1_2.setBounds(560, 170, 289, 2);
@@ -268,11 +277,6 @@ public class RegistroHuesped extends JFrame {
 
 		JPanel btnguardar = new JPanel();
 		btnguardar.setBounds(723, 560, 122, 35);
-		btnguardar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		btnguardar.setLayout(null);
 		btnguardar.setBackground(new Color(12, 138, 199));
 		contentPane.add(btnguardar);
@@ -303,7 +307,7 @@ public class RegistroHuesped extends JFrame {
 
 		JPanel btnexit = new JPanel();
 		btnexit.setBounds(857, 0, 53, 36);
-		contentPane.add(btnexit);
+		//contentPane.add(btnexit);
 		btnexit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -335,6 +339,46 @@ public class RegistroHuesped extends JFrame {
 		labelExit.setForeground(SystemColor.black);
 		labelExit.setFont(new Font("Roboto", Font.PLAIN, 18));
 		header.add(btnexit);
+		
+		
+		
+		btnguardar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				guardarHuesped();
+			}
+		});
+		
+	}
+
+	protected void guardarHuesped() {
+		String nombre=txtNombre.getText().trim();
+		String apellido=txtApellido.getText().trim();
+		String fechaNacimiento=((JTextField)txtFechaN.getDateEditor().getUiComponent()).getText().trim();
+		String nacionalidad=txtNacionalidad.getSelectedItem().toString();
+		String telefono=txtTelefono.getText().trim();
+		String reservaid=txtNreserva.getText().trim();
+		
+		if(nombre.isBlank() || apellido.isBlank() || fechaNacimiento.isBlank() || nacionalidad.isBlank() ||telefono.isBlank() || reservaid.isBlank() ) {
+			JOptionPane.showMessageDialog(contentPane, "Debes llenar todos los campos.");
+			return;
+		}
+		
+		HuespedController huespedController=new HuespedController();
+		ReservaController reservaController=new ReservaController();
+		
+		Huesped huesped=new Huesped(nombre,apellido,Date.valueOf(fechaNacimiento),nacionalidad,telefono);
+		huespedController.save(huesped);
+		
+		Reserva reserva=reservaController.getById(Long.valueOf(reservaid));
+		reserva.setHuesped(huesped);
+		reservaController.update(reserva);
+				
+		JOptionPane.showMessageDialog(contentPane,"Huesped guardado con éxito id:"+huesped.getId());
+		
+		MenuUsuario menuUsuario=new MenuUsuario();
+		menuUsuario.setVisible(true);
+		dispose();
 	}
 
 	private void headerMouseDragged(java.awt.event.MouseEvent evt) {
@@ -349,5 +393,4 @@ public class RegistroHuesped extends JFrame {
 		xMouse = evt.getX();
 		yMouse = evt.getY();
 	}
-
 }

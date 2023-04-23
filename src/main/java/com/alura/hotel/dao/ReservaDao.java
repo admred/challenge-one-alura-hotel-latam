@@ -27,6 +27,7 @@ public class ReservaDao {
 	public void remove(Reserva reserva) {
 		Reserva h=em.merge(reserva);
 		em.remove(h);
+		
 	}
 	
 	public void save(Reserva reserva) {
