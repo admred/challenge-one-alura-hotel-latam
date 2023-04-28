@@ -3,6 +3,7 @@ package com.alura.hotel.models;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -88,5 +89,17 @@ public class Huesped {
 	
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
+	}
+
+	public Object[] toArray() {
+		return new Object[] {
+				this.Id.toString(),
+				this.getNombre(),
+				this.getApellido(),
+				this.getFechaNacimiento().toString(),
+				this.getNacionalidad(),
+				this.getTelefono(),
+				this.reservas.size()+""
+		};
 	}
 }

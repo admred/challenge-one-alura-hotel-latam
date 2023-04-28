@@ -1,6 +1,8 @@
 package com.alura.hotel.views;
 
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Event;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Toolkit;
@@ -20,10 +22,20 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ChangeEvent;
 import javax.swing.table.DefaultTableModel;
+
+import com.alura.hotel.controllers.HuespedController;
+import com.alura.hotel.controllers.ReservaController;
+import com.alura.hotel.models.Huesped;
+import com.alura.hotel.models.Reserva;
 
 @SuppressWarnings("serial")
 public class Busqueda extends JFrame {
+	
+	private ReservaController reservaController;
+	private HuespedController huespedController;
+	
 
 	/**
 	 * Launch the application.
@@ -44,10 +56,11 @@ public class Busqueda extends JFrame {
 	private JTextField txtBuscar;
 	private JTable tbHuespedes;
 	private JTable tbReservas;
-	private DefaultTableModel modelo;
+	private DefaultTableModel modeloReserva;
 	private DefaultTableModel modeloHuesped;
 	private JLabel labelAtras;
 	private JLabel labelExit;
+	private JTabbedPane tabbedPanel;
 
 	int xMouse, yMouse;
 
@@ -66,6 +79,10 @@ public class Busqueda extends JFrame {
 		setLocationRelativeTo(null);
 		setUndecorated(true);
 
+		this.reservaController=new ReservaController();
+		this.huespedController=new HuespedController();
+		
+		
 		txtBuscar = new JTextField();
 		txtBuscar.setBounds(491, 127, 238, 31);
 		txtBuscar.setBorder(javax.swing.BorderFactory.createEmptyBorder());
@@ -78,23 +95,23 @@ public class Busqueda extends JFrame {
 		lblNewLabel_4.setBounds(331, 62, 398, 42);
 		contentPane.add(lblNewLabel_4);
 
-		JTabbedPane panel = new JTabbedPane(JTabbedPane.TOP);
-		panel.setBackground(new Color(12, 138, 199));
-		panel.setFont(new Font("Roboto", Font.PLAIN, 16));
-		panel.setBounds(20, 169, 865, 328);
-		contentPane.add(panel);
+		tabbedPanel = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPanel.setBackground(new Color(12, 138, 199));
+		tabbedPanel.setFont(new Font("Roboto", Font.PLAIN, 16));
+		tabbedPanel.setBounds(20, 169, 865, 328);
+		contentPane.add(tabbedPanel);
 
 		tbReservas = new JTable();
 		tbReservas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tbReservas.setFont(new Font("Roboto", Font.PLAIN, 16));
-		modelo = (DefaultTableModel) tbReservas.getModel();
-		modelo.addColumn("Numero de Reserva");
-		modelo.addColumn("Fecha Check In");
-		modelo.addColumn("Fecha Check Out");
-		modelo.addColumn("Valor");
-		modelo.addColumn("Forma de Pago");
+		modeloReserva = (DefaultTableModel) tbReservas.getModel();
+		modeloReserva.addColumn("Numero de Reserva");
+		modeloReserva.addColumn("Fecha Check In");
+		modeloReserva.addColumn("Fecha Check Out");
+		modeloReserva.addColumn("Valor");
+		modeloReserva.addColumn("Forma de Pago");
 		JScrollPane scroll_table = new JScrollPane(tbReservas);
-		panel.addTab("Reservas", new ImageIcon(Busqueda.class.getResource("/imagenes/reservado.png")), scroll_table,
+		tabbedPanel.addTab("Reservas", new ImageIcon(Busqueda.class.getResource("/imagenes/reservado.png")), scroll_table,
 				null);
 		scroll_table.setVisible(true);
 
@@ -110,9 +127,10 @@ public class Busqueda extends JFrame {
 		modeloHuesped.addColumn("Telefono");
 		modeloHuesped.addColumn("Número de Reserva");
 		JScrollPane scroll_tableHuespedes = new JScrollPane(tbHuespedes);
-		panel.addTab("Huéspedes", new ImageIcon(Busqueda.class.getResource("/imagenes/pessoas.png")),
+		tabbedPanel.addTab("Huéspedes", new ImageIcon(Busqueda.class.getResource("/imagenes/pessoas.png")),
 				scroll_tableHuespedes, null);
 		scroll_tableHuespedes.setVisible(true);
+		
 
 		JLabel lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setIcon(new ImageIcon(Busqueda.class.getResource("/imagenes/Ha-100px.png")));
@@ -211,12 +229,6 @@ public class Busqueda extends JFrame {
 		contentPane.add(separator_1_2);
 
 		JPanel btnbuscar = new JPanel();
-		btnbuscar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-
-			}
-		});
 		btnbuscar.setLayout(null);
 		btnbuscar.setBackground(new Color(12, 138, 199));
 		btnbuscar.setBounds(748, 125, 122, 35);
@@ -258,9 +270,46 @@ public class Busqueda extends JFrame {
 		lblEliminar.setBounds(0, 0, 122, 35);
 		btnEliminar.add(lblEliminar);
 		setResizable(false);
+		
+		
+		
+		// eventos
+		
+		btnbuscar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				buscar();
+			}
+		});
+		
+		// primer update
+		updateReservas();
+		updateHuespedes();
 	}
 
-private void headerMouseDragged(java.awt.event.MouseEvent evt) {
+	private void buscar() {
+		// TODO:
+		String selectedTittle=tabbedPanel.getTitleAt(tabbedPanel.getSelectedIndex());
+		
+		
+	}
+	
+	private void updateReservas() {
+		
+		modeloReserva.setRowCount(0);
+		for(Reserva r:reservaController.list()) {
+			modeloReserva.addRow(r.toArray());
+		}
+	}
+	private void updateHuespedes() {
+		modeloHuesped.setRowCount(0);
+		for(Huesped h:huespedController.list()) {
+			modeloHuesped.addRow(h.toArray());
+		}
+	}
+	
+
+	private void headerMouseDragged(java.awt.event.MouseEvent evt) {
 		int x = evt.getXOnScreen();
 		int y = evt.getYOnScreen();
 		this.setLocation(x - xMouse, y - yMouse);

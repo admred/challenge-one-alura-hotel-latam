@@ -27,7 +27,6 @@ public class ReservaDao {
 	public void remove(Reserva reserva) {
 		Reserva h=em.merge(reserva);
 		em.remove(h);
-		
 	}
 	
 	public void save(Reserva reserva) {
@@ -36,5 +35,10 @@ public class ReservaDao {
 	
 	public void  update(Reserva reserva) {
 		em.merge(reserva);
+	}
+
+	public List<Reserva> search(String word) {
+		final String jqpl="SELECT r FROM Reserva AS r WHERE r.fechaEntrada=:word OR r.fechaSalida=:word OR r.valor=:word OR r.formaPago=:word";
+		return em.createQuery(jqpl,Reserva.class).setParameter("word",word).getResultList();
 	}
 }

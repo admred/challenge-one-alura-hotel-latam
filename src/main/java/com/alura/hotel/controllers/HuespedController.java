@@ -1,5 +1,7 @@
 package com.alura.hotel.controllers;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import com.alura.hotel.dao.HuespedDao;
@@ -21,5 +23,9 @@ public class HuespedController {
 		em.getTransaction().begin();
 		huespedDao.save(huesped);
 		em.getTransaction().commit();
+	}
+
+	public List<Huesped> list() {
+		return huespedDao.list();
 	}
 }

@@ -86,4 +86,14 @@ public class Reserva {
 	public void setValor(BigDecimal valor) {
 		this.valor = valor;
 	}
+	
+	public Object[] toArray() {
+		return new Object[] {
+			this.Id.toString(),
+			this.fechaEntrada.toString(),
+			this.fechaSalida.toString(),
+			this.valor.toString(),
+			this.getFormaPago()
+		};
+	}
 }

@@ -2,6 +2,8 @@ package com.alura.hotel.controllers;
 
 
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import com.alura.hotel.dao.ReservaDao;
@@ -33,5 +35,13 @@ public class ReservaController {
 	
 	public Reserva getById(Long id) {
 		return reservaDao.getById(id);
+	}
+	
+	public List<Reserva> list(){
+		return reservaDao.list();
+	}
+	
+	public List<Reserva> search(String word) {
+		return reservaDao.search(word);
 	}
 }
