@@ -28,4 +28,8 @@ public class HuespedController {
 	public List<Huesped> list() {
 		return huespedDao.list();
 	}
+
+	public List<Huesped> search(String busqueda) {
+		return huespedDao.search(busqueda);
+	}
 }

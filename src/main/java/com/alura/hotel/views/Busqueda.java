@@ -288,10 +288,35 @@ public class Busqueda extends JFrame {
 	}
 
 	private void buscar() {
-		// TODO:
-		String selectedTittle=tabbedPanel.getTitleAt(tabbedPanel.getSelectedIndex());
+		String selectedTabName=tabbedPanel.getTitleAt(tabbedPanel.getSelectedIndex());
+		String busqueda=txtBuscar.getText();
 		
-		
+		switch(selectedTabName) {
+		case "Reservas":
+			if(busqueda.isBlank()) {
+				updateReservas();
+				return;
+			}
+			modeloReserva.setRowCount(0);
+			for(Reserva r:reservaController.search(busqueda)) {
+				modeloReserva.addRow(r.toArray());
+			}
+			break;
+			
+		case "Huéspedes":
+			if(busqueda.isBlank()) {
+				updateHuespedes();
+				return;
+			}
+			modeloHuesped.setRowCount(0);
+			for(Huesped h:huespedController.search(busqueda)) {
+				modeloHuesped.addRow(h.toArray());
+			}
+			break;
+			
+		default:
+			throw new IndexOutOfBoundsException("No existe Tab");
+		}
 	}
 	
 	private void updateReservas() {

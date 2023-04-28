@@ -3,8 +3,9 @@ package com.alura.hotel.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-
 import com.alura.hotel.models.Huesped;
+
+
 
 public class HuespedDao {
 	private EntityManager em;
@@ -35,5 +36,16 @@ public class HuespedDao {
 	
 	public void  update(Huesped huesped) {
 		em.merge(huesped);
+	}
+	
+	public List<Huesped> search(String busqueda) {
+		final String jqpl="SELECT h FROM Huesped AS h WHERE"
+					+" h.nombre   LIKE '%'||:busqueda||'%' OR"
+					+" h.apellido LIKE '%'||:busqueda||'%' OR"
+					+" h.fechaNacimiento LIKE '%'||:busqueda||'%' OR"
+					+" h.nacionalidad LIKE '%'||:busqueda||'%' OR"
+					+" h.telefono LIKE '%'||:busqueda||'%'";
+					
+		return em.createQuery(jqpl,Huesped.class).setParameter("busqueda",busqueda).getResultList();
 	}
 }

@@ -8,7 +8,7 @@ version="2.0">
 		<!-- https://stackoverflow.com/questions/17331024/persistence-xml-different-transaction-type-attributes -->
 		<properties>
 			<!-- https://stackoverflow.com/questions/7251751/how-do-i-create-a-persistence-xml-file-for-jpa-and-hibernate#60622264 -->
-			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/hotel"/>
 			<property name="javax.persistence.jdbc.user" value="hotel"/>
 			<property name="javax.persistence.jdbc.password" value="1234"/>

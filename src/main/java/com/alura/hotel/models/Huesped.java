@@ -3,8 +3,6 @@ package com.alura.hotel.models;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
