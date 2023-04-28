@@ -41,7 +41,7 @@ public class ReservaController {
 		return reservaDao.list();
 	}
 	
-	public List<Reserva> search(String word) {
-		return reservaDao.search(word);
+	public List<Reserva> search(String busqueda) {
+		return reservaDao.search(busqueda);
 	}
 }

@@ -9,10 +9,8 @@ import javax.persistence.EntityManager;
 
 import com.alura.hotel.dao.HuespedDao;
 import com.alura.hotel.dao.ReservaDao;
-import com.alura.hotel.dao.UserDao;
 import com.alura.hotel.models.Huesped;
 import com.alura.hotel.models.Reserva;
-import com.alura.hotel.models.User;
 import com.alura.hotel.utils.JPAUtils;
 
 /*
@@ -23,7 +21,7 @@ import com.alura.hotel.utils.JPAUtils;
 public class CargarDatos {
 	
 	public CargarDatos() {
-		User admin=new User("admin","admin"); 
+		
 		
 		Huesped huesped1=new Huesped("Jonatan Brian","Palacios Guemes",Date.valueOf("1980-04-05"),"Chile","010-021-4334732");
 		Huesped huesped2=new Huesped("Soledad Romina","Jofre Romero",Date.valueOf("2001-06-23"),"Uruguay","872-477421");
@@ -41,11 +39,9 @@ public class CargarDatos {
 		EntityManager em=JPAUtils.getEntityManager();
 		HuespedDao huespedDao=new HuespedDao(em);
 		ReservaDao reservaDao=new ReservaDao(em);
-		UserDao userDao=new UserDao(em);
 		
 		em.getTransaction().begin();
 		
-		userDao.save(admin);
 				
 		huespedDao.save(huesped1);
 		huespedDao.save(huesped2);
