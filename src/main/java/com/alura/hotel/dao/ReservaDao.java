@@ -38,7 +38,6 @@ public class ReservaDao {
 	}
 
 	public List<Reserva> search(String busqueda) {
-		//final String jqpl="SELECT r FROM Reserva AS r WHERE r.fechaEntrada=:word OR r.fechaSalida=:word OR r.valor=:word OR r.formaPago=:word";
 		final String jpql="SELECT r FROM Reserva r WHERE"
 				+" r.fechaEntrada LIKE '%'||:busqueda||'%' OR"
 				+" r.fechaSalida LIKE '%'||:busqueda||'%' OR"
@@ -47,4 +46,9 @@ public class ReservaDao {
 		
 		return em.createQuery(jpql,Reserva.class).setParameter("busqueda",busqueda).getResultList();
 	}
+
+	public void removeById(Long id) {
+		final String jpql="DELETE FROM Reserva r WHERE r.Id=:id";
+		em.createQuery(jpql).setParameter("id",id).executeUpdate();
+		}
 }

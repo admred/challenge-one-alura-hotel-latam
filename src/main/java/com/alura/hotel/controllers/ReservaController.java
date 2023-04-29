@@ -44,4 +44,11 @@ public class ReservaController {
 	public List<Reserva> search(String busqueda) {
 		return reservaDao.search(busqueda);
 	}
+
+	
+	public void removeById(Long id) {
+		em.getTransaction().begin();
+		reservaDao.removeById(id);
+		em.getTransaction().commit();
+	}
 }

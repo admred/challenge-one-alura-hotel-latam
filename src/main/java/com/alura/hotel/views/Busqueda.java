@@ -1,8 +1,6 @@
 package com.alura.hotel.views;
 
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Event;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Toolkit;
@@ -13,6 +11,7 @@ import java.awt.event.MouseMotionAdapter;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
@@ -22,7 +21,6 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.ChangeEvent;
 import javax.swing.table.DefaultTableModel;
 
 import com.alura.hotel.controllers.HuespedController;
@@ -282,6 +280,20 @@ public class Busqueda extends JFrame {
 			}
 		});
 		
+		btnEditar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TOOD
+			}
+		});
+		
+		btnEliminar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				eliminar();
+			}
+		});
+		
 		// primer update
 		updateReservas();
 		updateHuespedes();
@@ -317,6 +329,53 @@ public class Busqueda extends JFrame {
 		default:
 			throw new IndexOutOfBoundsException("No existe Tab");
 		}
+	}
+	
+	private void eliminar() {
+		String selectedTabName=tabbedPanel.getTitleAt(tabbedPanel.getSelectedIndex());
+		int indexRow=-1;
+		String id="";
+		int opt;
+		
+		
+		
+		
+		switch(selectedTabName) {
+		case "Reservas":
+			indexRow=tbReservas.getSelectedRow();
+			
+			if(indexRow == -1) {
+				JOptionPane.showMessageDialog(contentPane,"Error: Debe selecionar un registro.");
+				return;
+			}
+			id=(String)modeloReserva.getValueAt(indexRow,0);
+			opt=JOptionPane.showConfirmDialog(contentPane,"Esta seguro que desea eliminar registros id:"+id);
+			if(opt!=JOptionPane.YES_OPTION)	return;
+			
+			
+			
+			modeloReserva.removeRow(indexRow);
+			reservaController.removeById(Long.valueOf(id));
+			break;
+		case "Huéspedes":
+			indexRow=tbHuespedes.getSelectedRow();
+			
+			if(indexRow == -1) {
+				JOptionPane.showMessageDialog(contentPane,"Error: Debe selecionar un registro.");
+				return;
+			}
+			id=(String)modeloHuesped.getValueAt(indexRow,0);
+			opt=JOptionPane.showConfirmDialog(contentPane,"Esta seguro que desea eliminar registros id:"+id);
+			if(opt!=JOptionPane.YES_OPTION)	return;
+			
+			
+			modeloHuesped.removeRow(indexRow);
+			huespedController.removeById(Long.valueOf(id));
+			break;
+		default:
+			throw new IndexOutOfBoundsException("No existe Tab");
+		}
+		
 	}
 	
 	private void updateReservas() {

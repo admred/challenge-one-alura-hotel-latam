@@ -32,4 +32,10 @@ public class HuespedController {
 	public List<Huesped> search(String busqueda) {
 		return huespedDao.search(busqueda);
 	}
+
+	public void removeById(Long id) {
+		em.getTransaction().begin();
+		huespedDao.removeById(id);
+		em.getTransaction().commit();
+	}
 }

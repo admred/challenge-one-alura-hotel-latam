@@ -14,7 +14,6 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.concurrent.TimeUnit;
 
-import javax.persistence.EntityManager;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
@@ -31,7 +30,6 @@ import javax.swing.border.LineBorder;
 import com.alura.hotel.controllers.ReservaController;
 import com.alura.hotel.models.Reserva;
 import com.alura.hotel.utils.Configuracion;
-import com.alura.hotel.utils.JPAUtils;
 import com.toedter.calendar.JDateChooser;
 
 
@@ -291,12 +289,12 @@ public class ReservasView extends JFrame {
 		panel.add(txtValor);
 		txtValor.setColumns(10);
 
-		txtFormaPago = new JComboBox();
+		txtFormaPago = new JComboBox<>();
 		txtFormaPago.setBounds(68, 417, 289, 38);
 		txtFormaPago.setBackground(SystemColor.text);
 		txtFormaPago.setBorder(new LineBorder(new Color(255, 255, 255), 1, true));
 		txtFormaPago.setFont(new Font("Roboto", Font.PLAIN, 16));
-		txtFormaPago.setModel(new DefaultComboBoxModel(	new String[] { "Tarjeta de Crédito", "Tarjeta de Débito", "Dinero en efectivo" }));
+		txtFormaPago.setModel(new DefaultComboBoxModel<>(	new String[] { "Tarjeta de Crédito", "Tarjeta de Débito", "Dinero en efectivo" }));
 		panel.add(txtFormaPago);
 
 		JPanel btnsiguiente = new JPanel();

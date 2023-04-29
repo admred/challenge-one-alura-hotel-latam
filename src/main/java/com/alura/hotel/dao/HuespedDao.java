@@ -48,4 +48,9 @@ public class HuespedDao {
 					
 		return em.createQuery(jqpl,Huesped.class).setParameter("busqueda",busqueda).getResultList();
 	}
+
+	public void removeById(Long id) {
+		final String jpql="DELETE FROM Huesped h WHERE h.Id=:id";
+		em.createQuery(jpql).setParameter("id",id).executeUpdate();
+	}
 }
