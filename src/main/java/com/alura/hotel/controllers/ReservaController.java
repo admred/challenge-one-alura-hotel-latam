@@ -51,4 +51,10 @@ public class ReservaController {
 		reservaDao.removeById(id);
 		em.getTransaction().commit();
 	}
+
+	public void removeReservasWithHuespedId(Long id) {
+		em.getTransaction().begin();
+		reservaDao.removeReservasWithHuespedId(id);
+		em.getTransaction().commit();
+	}
 }

@@ -50,5 +50,10 @@ public class ReservaDao {
 	public void removeById(Long id) {
 		final String jpql="DELETE FROM Reserva r WHERE r.Id=:id";
 		em.createQuery(jpql).setParameter("id",id).executeUpdate();
-		}
+	}
+	
+	public void removeReservasWithHuespedId(Long id) {
+		final String jpql="DELETE FROM Reserva r WHERE r.huesped.Id=:id";
+		em.createQuery(jpql).setParameter("id",id).executeUpdate();
+	}
 }

@@ -337,9 +337,6 @@ public class Busqueda extends JFrame {
 		String id="";
 		int opt;
 		
-		
-		
-		
 		switch(selectedTabName) {
 		case "Reservas":
 			indexRow=tbReservas.getSelectedRow();
@@ -353,7 +350,6 @@ public class Busqueda extends JFrame {
 			if(opt!=JOptionPane.YES_OPTION)	return;
 			
 			
-			
 			modeloReserva.removeRow(indexRow);
 			reservaController.removeById(Long.valueOf(id));
 			break;
@@ -365,12 +361,26 @@ public class Busqueda extends JFrame {
 				return;
 			}
 			id=(String)modeloHuesped.getValueAt(indexRow,0);
-			opt=JOptionPane.showConfirmDialog(contentPane,"Esta seguro que desea eliminar registros id:"+id);
+			opt=JOptionPane.showConfirmDialog(contentPane,"Esta seguro que desea eliminar registros id:"+id+" y todas las reservas asociadas?");
 			if(opt!=JOptionPane.YES_OPTION)	return;
 			
+			/*  Tuve el siguiente error:  
+			 * 
+			 * ERROR: Cannot delete or update a parent row: a foreign key constraint fails (`hotel`.`reservas`, CONSTRAINT `FKcp1j1g2i5qj32myag2fvtm5kk` FOREIGN KEY (`huesped_Id`) REFERENCES `huespedes` (`Id`))
+			 * 
+			 * Solucion:
+			 *    Primero borrar todos los registros de Reservas antes de borrar un huesped
+			 *    
+			 * No se por que hibernate ignora CascadeType.ALL, cualquier comentario es bienvenido
+			 *  
+			 */
+
+			 
+			reservaController.removeReservasWithHuespedId(Long.valueOf(id));
+			huespedController.removeById(Long.valueOf(id));
 			
 			modeloHuesped.removeRow(indexRow);
-			huespedController.removeById(Long.valueOf(id));
+			updateReservas(); 
 			break;
 		default:
 			throw new IndexOutOfBoundsException("No existe Tab");
