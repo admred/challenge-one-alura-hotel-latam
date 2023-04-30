@@ -369,7 +369,7 @@ public class Busqueda extends JFrame {
 			 * ERROR: Cannot delete or update a parent row: a foreign key constraint fails (`hotel`.`reservas`, CONSTRAINT `FKcp1j1g2i5qj32myag2fvtm5kk` FOREIGN KEY (`huesped_Id`) REFERENCES `huespedes` (`Id`))
 			 * 
 			 * Solucion:
-			 *    Primero borrar todos los registros de Reservas antes de borrar un huesped
+			 *    Primero borrar todos los registros de Reservas (con Id del huesped) y despues el huesped
 			 *    
 			 * No se por que hibernate ignora CascadeType.ALL, cualquier comentario es bienvenido
 			 *  
