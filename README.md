@@ -4,7 +4,7 @@
 
 Este proyecto es un sistema básico de gestión de reservas para un hotel.
 
-El usuario es "admin" y la contraseña es "admin"
+El usuario es *admin* y la contraseña es *admin*
 
 ---
 ## ⚒ Tecnologías Utilizadas:
@@ -24,12 +24,12 @@ El usuario es "admin" y la contraseña es "admin"
 ## 📁 Estructura de directorios:
 - src/main/java: Carpeta base donde se guarda el código del proyecto.
 - src/test/java: Carpeta donde se guardan las pruebas (o tests) del proyecto.
-- src/imagenes:  Las imágenes para este documento.
+- imagenes:  Las imágenes para este documento.
 - src/main/resources: Se guardan recursos como los iconos.
 
 ---
 
-## 📦 Los paquetes en /src/main/java
+## 📦 Los paquetes en /src/main/java:
 - com.alura.hotel.views:  Agrupa las interfaces gráfica hechas con WindowBuilder.
 - com.alura.hotel.controller: Agrupa controladores.
 - com.alura.hotel.models: Agrupa los modelos.
@@ -42,11 +42,11 @@ El usuario es "admin" y la contraseña es "admin"
 ---
 
 ## 🎥 Video de la aplicación
--  https://youtu.be/jvI2cJ84qhE
+###  https://youtu.be/jvI2cJ84qhE
 
 ---
 
-## Diseño de la base de datos
+## 💾 Diagrama de la base de datos
 
 <p align="center">
 <img src="imagenes/base-de-datos.png">
@@ -123,4 +123,4 @@ El usuario es "admin" y la contraseña es "admin"
 
 ---
 
-## 💼 <a "href="https://www.linkedin.com/in/luccianovm-dev">Linkedin</a>
+## 💼  [Linkedin](https://www.linkedin.com/in/lucianovm-dev)
