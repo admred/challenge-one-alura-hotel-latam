@@ -66,6 +66,7 @@ public class Busqueda extends JFrame {
 	 * Create the frame.
 	 */
 	public Busqueda() {
+		super("Busqueda");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Busqueda.class.getResource("/imagenes/lupa2.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 910, 571);
@@ -283,7 +284,7 @@ public class Busqueda extends JFrame {
 		btnEditar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// TOOD
+				editar();
 			}
 		});
 		
@@ -297,6 +298,44 @@ public class Busqueda extends JFrame {
 		// primer update
 		updateReservas();
 		updateHuespedes();
+	}
+	
+	private void editar() {
+		String selectedTabName=tabbedPanel.getTitleAt(tabbedPanel.getSelectedIndex());
+		int indexRow=-1;
+		
+		switch(selectedTabName) {
+		case "Reservas":
+			indexRow=tbReservas.getSelectedRow();
+			if(indexRow == -1) {
+				JOptionPane.showMessageDialog(contentPane,"Error: Debe selecionar un registro.");
+				return;
+			}
+			String reservaId=(String)modeloReserva.getValueAt(indexRow,0);
+			Reserva reserva=reservaController.getById(Long.valueOf(reservaId));
+			
+			EditarReserva editarReserva=new EditarReserva(reserva);
+			editarReserva.setVisible(true);
+			dispose();
+			break;
+		case "Huéspedes":
+			indexRow=tbHuespedes.getSelectedRow();
+			if(indexRow == -1) {
+				JOptionPane.showMessageDialog(contentPane,"Error: Debe selecionar un registro.");
+				return;
+			}
+			String huespedId=(String)modeloHuesped.getValueAt(indexRow,0);
+			Huesped huesped=huespedController.getById(Long.valueOf(huespedId));
+			
+			EditarHuesped editarHuesped=new EditarHuesped(huesped);
+			editarHuesped.setVisible(true);
+			dispose();
+			
+			break;
+		default:
+			throw new IndexOutOfBoundsException("No existe Tab");
+		}
+			
 	}
 
 	private void buscar() {
@@ -364,23 +403,13 @@ public class Busqueda extends JFrame {
 			opt=JOptionPane.showConfirmDialog(contentPane,"Esta seguro que desea eliminar registros id:"+id+" y todas las reservas asociadas?");
 			if(opt!=JOptionPane.YES_OPTION)	return;
 			
-			/*  Tuve el siguiente error:  
-			 * 
-			 * ERROR: Cannot delete or update a parent row: a foreign key constraint fails (`hotel`.`reservas`, CONSTRAINT `FKcp1j1g2i5qj32myag2fvtm5kk` FOREIGN KEY (`huesped_Id`) REFERENCES `huespedes` (`Id`))
-			 * 
-			 * Solucion:
-			 *    Primero borrar todos los registros de Reservas (con Id del huesped) y despues el huesped
-			 *    
-			 * No se por que hibernate ignora CascadeType.ALL, cualquier comentario es bienvenido
-			 *  
-			 */
-
-			 
-			reservaController.removeReservasWithHuespedId(Long.valueOf(id));
-			huespedController.removeById(Long.valueOf(id));
+					
+			Huesped huesped=huespedController.getById(Long.valueOf(id));
+			huespedController.remove(huesped);
 			
 			modeloHuesped.removeRow(indexRow);
 			updateReservas(); 
+			
 			break;
 		default:
 			throw new IndexOutOfBoundsException("No existe Tab");
@@ -389,7 +418,6 @@ public class Busqueda extends JFrame {
 	}
 	
 	private void updateReservas() {
-		
 		modeloReserva.setRowCount(0);
 		for(Reserva r:reservaController.list()) {
 			modeloReserva.addRow(r.toArray());

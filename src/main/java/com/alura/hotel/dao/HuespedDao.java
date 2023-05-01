@@ -21,8 +21,8 @@ public class HuespedDao {
 	}
 	
 	public List<Huesped> list(){
-		final String jqpl="SELECT h FROM Huesped AS h";
-		return em.createQuery(jqpl,Huesped.class).getResultList();
+		final String jpql="SELECT h FROM Huesped h";
+		return em.createQuery(jpql,Huesped.class).getResultList();
 	}
 	
 	public void remove(Huesped huesped) {

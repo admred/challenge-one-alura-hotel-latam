@@ -23,15 +23,15 @@ public class CargarDatos {
 	public CargarDatos() {
 		
 		
-		Huesped huesped1=new Huesped("Jonatan Brian","Palacios Guemes",Date.valueOf("1980-04-05"),"Chile","010-021-4334732");
-		Huesped huesped2=new Huesped("Soledad Romina","Jofre Romero",Date.valueOf("2001-06-23"),"Uruguay","872-477421");
-		Huesped huesped3=new Huesped("Esteban Joel","Sarmiento",Date.valueOf("1994-12-03"),"Argentina","354-03-757754");
+		Huesped huesped1=new Huesped("Jonatan Brian","Palacios Guemes",Date.valueOf("1980-04-05"),"mexicano-mexicana","010-021-4334732");
+		Huesped huesped2=new Huesped("Soledad Romina","Jofre Romero",Date.valueOf("2001-06-23"),"argentino-argentina","872-477421");
+		Huesped huesped3=new Huesped("Esteban Joel","Sarmiento",Date.valueOf("1994-12-03"),"chileno-chilena","354-03-757754");
 		
 		List<Reserva> reservas=Arrays.asList(
-				new Reserva(Date.valueOf("2023-06-01"),Date.valueOf("2023-06-10"),new BigDecimal("1330"),"efectivo",huesped1),
-				new Reserva(Date.valueOf("2023-07-10"),Date.valueOf("2023-07-12"),new BigDecimal("700"),"tarjeta",huesped2),
-				new Reserva(Date.valueOf("2023-08-20"),Date.valueOf("2023-08-21"),new BigDecimal("300"),"debito",huesped3),
-				new Reserva(Date.valueOf("2023-09-13"),Date.valueOf("2023-09-14"),new BigDecimal("300"),"debito",huesped3)
+				new Reserva(Date.valueOf("2023-06-01"),Date.valueOf("2023-06-10"),new BigDecimal("1330"),"Tarjeta de Débito",huesped1),
+				new Reserva(Date.valueOf("2023-07-10"),Date.valueOf("2023-07-12"),new BigDecimal("700"),"Dinero en efectivo",huesped2),
+				new Reserva(Date.valueOf("2023-08-20"),Date.valueOf("2023-08-21"),new BigDecimal("300"),"Tarjeta de Crédito",huesped3),
+				new Reserva(Date.valueOf("2023-09-13"),Date.valueOf("2023-09-14"),new BigDecimal("300"),"Tarjeta de Crédito",huesped3)
 				);
 		
 		
@@ -51,8 +51,8 @@ public class CargarDatos {
 		
 		em.getTransaction().commit();
 		
-		Reserva reserva=em.find(Reserva.class, 4l);
-		System.out.println(reserva.getHuesped().getNombre());
+		List<Reserva> list=reservaDao.list();
+		list.stream().map(Reserva::getHuesped).map(Huesped::getNombre).forEach(System.out::println);
 		
 		
 		em.close();
