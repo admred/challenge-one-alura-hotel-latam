@@ -124,8 +124,8 @@ public class EditarReserva extends JFrame {
 		lblFormaPago.setFont(new Font("Roboto Black", Font.PLAIN, 18));
 		panel.add(lblFormaPago);
 
-		JLabel lblTitulo = new JLabel("SISTEMA DE RESERVAS");
-		lblTitulo.setBounds(109, 60, 219, 42);
+		JLabel lblTitulo = new JLabel("EDITAR RESERVA");
+		lblTitulo.setBounds(68, 60, 289, 42);
 		lblTitulo.setForeground(new Color(12, 138, 199));
 		lblTitulo.setFont(new Font("Roboto", Font.BOLD, 20));
 		panel.add(lblTitulo);

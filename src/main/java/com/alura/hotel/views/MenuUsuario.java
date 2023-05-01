@@ -112,7 +112,7 @@ public class MenuUsuario extends JFrame {
 		labelRegistro = new JLabel("Registro de reservas");
 		labelRegistro.setIcon(new ImageIcon(MenuUsuario.class.getResource("/imagenes/reservado.png")));
 		labelRegistro.setForeground(SystemColor.text);
-		labelRegistro.setBounds(25, 11, 205, 34);
+		labelRegistro.setBounds(25, 11, 232, 34);
 		labelRegistro.setFont(new Font("Roboto", Font.PLAIN, 18));
 		labelRegistro.setHorizontalAlignment(SwingConstants.LEFT);
 		btnRegistro.add(labelRegistro);
@@ -143,7 +143,7 @@ public class MenuUsuario extends JFrame {
 
 		JLabel lblBusquedaDeReservas = new JLabel("Búsqueda");
 		lblBusquedaDeReservas.setIcon(new ImageIcon(MenuUsuario.class.getResource("/imagenes/pessoas.png")));
-		lblBusquedaDeReservas.setBounds(27, 11, 200, 34);
+		lblBusquedaDeReservas.setBounds(27, 11, 230, 34);
 		lblBusquedaDeReservas.setHorizontalAlignment(SwingConstants.LEFT);
 		lblBusquedaDeReservas.setForeground(Color.WHITE);
 		lblBusquedaDeReservas.setFont(new Font("Roboto", Font.PLAIN, 18));
@@ -214,8 +214,8 @@ public class MenuUsuario extends JFrame {
 		lblNewLabel.setBounds(302, 234, 407, 46);
 		contentPane.add(lblNewLabel);
 
-		String textoDescripcion = "<html><body>Sistema de reserva de hotel. Controle y administre de forma óptima y fácil <br> el flujo de reservas y de huespédes del hotel   </body></html>";
-		JLabel labelDescripcion = new JLabel("<html><body>Sistema de reserva de hotel. Controle y administre de forma óptima y fácil el flujo de reservas y de huespédes del hotel   </body></html>");
+		String textoDescripcion = "<html><body>Sistema de reserva de hotel. Controle y administre de forma óptima y fácil el flujo de reservas y de huespédes del hotel</body></html>";
+		JLabel labelDescripcion = new JLabel(textoDescripcion);
 		labelDescripcion.setFont(new Font("Roboto", Font.PLAIN, 17));
 
 		labelDescripcion.setBounds(312, 291, 598, 66);
