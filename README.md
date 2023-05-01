@@ -123,4 +123,4 @@ El usuario es "admin" y la contraseña es "admin"
 
 ---
 
-## 💼 <a "href="https://www.linkedin.com/in/luccianovm-dev>Linkedin</a>
+## 💼 <a "href="https://www.linkedin.com/in/luccianovm-dev">Linkedin</a>
