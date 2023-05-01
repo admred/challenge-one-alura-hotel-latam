@@ -1,7 +1,9 @@
 # Challenge ONE | Java | Back-end | Hotel Alura
 ---
 
-### Este proyecto es un sistema básico de gestión de reservas para un hotel. El usuario es "admin" y la contraseña es "admin"
+### Este proyecto es un sistema básico de gestión de reservas para un hotel. 
+
+El usuario es "admin" y la contraseña es "admin"
 
 ---
 ## Tecnologías Utilizadas:
@@ -37,43 +39,78 @@
 - https://youtu.be/jvI2cJ84qhE
 
 ---
+
 ## Diseño de la base de datos
-![Diseño de la base de datos](https://user-images.githubusercontent.com/101413385/169529338-09a4d4c2-1b5a-41dc-b305-38498ebc29a8.png?raw=true)
+
+<p align="center">
+<img src="imagenes/base-de-datos.jpg">
+</p>
 
 ---
+
 ##  Menu Principal
-![Menu principal](https://github.com/admred/challenge-one-alura-hotel-latam/imagenes/menu-principal.png?raw=true)
+<p align="center">
+<img src="imagenes/menu-principal.png">
+</p>
 
 ---
+
 ## Login
 El usuario es "admin" y la contraseña es "admin"
-![Login](https://github.com/admred/challenge-one-alura-hotel-latam/imagenes/login.png?raw=true)
+<p align="center">
+<img src="imagenes/login.png">
+</p>
 
 ---
+
 ## Menú Usuario
-Hay dos opciones disponibles, "Buesqueda" y "Registro de reserva"
-![Menu usuario](https://github.com/admred/challenge-one-alura-hotel-latam/imagenes/menu-usuario.png?raw=true)
+<p align="center">
+<img src="imagenes/menu-usuario.png">
+</p>
 
 ---
+
 ## Registrar Reserva
-![Registrar reserva](https://github.com/admred/challenge-one-alura-hotel-latam/imagenes/registro-reserva.png?raw=true)
+
+<p align="center">
+<img src="imagenes/registro-reserva.png">
+</p>
 
 ---
+
 ## Registro Huésped
-![Registro huesped](https://github.com/admred/challenge-one-alura-hotel-latam/imagenes/registro-huesped.png?raw=true)
+
+<p align="center">
+<img src="registro-huesped.png">
+</p>
 
 ---
+
 ## Búsqueda Reserva
-![Busqueda reserva](https://github.com/admred/challenge-one-alura-hotel-latam/imagenes/busqueda-reserva.png?raw=true)
+
+<p align="center">
+<img src="imagenes/busqueda-reserva.png">
+</p>
 
 ---
+
 ## Búsqueda Huésped
-![Busqueda huesped](https://github.com/admred/challenge-one-alura-hotel-latam/imagenes/busqueda-huesped.png?raw=true)
+
+<p align="center">
+<img src="imagenes/busqueda-huesped.png">
+</p>
 
 ---
+
 ## Editar Reservas
-![Editar reserva](https://github.com/admred/challenge-one-alura-hotel-latam/imagenes/editar-reserva.png?raw=true)
+
+<p align="center">
+<img src="imagenes/editar-reserva.png">
+</p>
 
 ---
+
 ## Editar Huésped
-![Editar huesped](https://github.com/admred/challenge-one-alura-hotel-latam/imagenes/editar-huesped.png?raw=true)
+<p align="center">
+<img src="imagenes/editar-huesped.png">
+</p>
